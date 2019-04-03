@@ -34,7 +34,7 @@ public class image2words {
                 .url("https://proto.col.ai/f/image2words")
                 .post(body)
                 .build();
-        String res = "res";
+        String res = "{}";
         try (Response response = client.newCall(request).execute()) {
             res = response.body().string();
         } catch (IOException e) {

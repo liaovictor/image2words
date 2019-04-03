@@ -25,6 +25,7 @@ public class image2wordsTest {
             System.out.println("found exception in test");
             e.printStackTrace();
         }
+        System.out.println(result);
         assertTrue(result.contains("产"));
     }
 //

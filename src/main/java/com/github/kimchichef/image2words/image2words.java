@@ -1,4 +1,4 @@
-package com.github.kimchichef;
+package com.github.kimchichef.image2words;
 
 import com.google.gson.Gson;
 import okhttp3.*;

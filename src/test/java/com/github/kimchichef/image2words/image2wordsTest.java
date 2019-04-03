@@ -1,8 +1,9 @@
-package com.github.kimchichef;
+package com.github.kimchichef.image2words;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.github.kimchichef.image2words.image2words;
 import com.google.gson.JsonSyntaxException;
 import org.junit.Test;
 

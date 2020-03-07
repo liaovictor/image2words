@@ -1,17 +1,17 @@
 package com.github.kimchichef.image2words;
 
 import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
 import okhttp3.*;
 
 import java.io.IOException;
 
-
+@AllArgsConstructor
 class Req {
     private String url;
+    private String base64;
+    private String fetch4me;
 
-    public Req(String url) {
-        this.url = url;
-    }
 }
 
 class Res {
@@ -22,10 +22,9 @@ class Res {
     }
 }
 
-
+//@Slf4j
 public class image2words {
-    public static String image2words(String q) {
-        Req aReq = new Req(q);
+    private static String run(Req aReq) {
         Gson gson = new Gson();
         String req = gson.toJson(aReq);
         OkHttpClient client = new OkHttpClient();
@@ -37,6 +36,7 @@ public class image2words {
         String res = "{}";
         try (Response response = client.newCall(request).execute()) {
             res = response.body().string();
+//            System.out.println(res);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,5 +44,23 @@ public class image2words {
         return resj.getResult();
     }
 
+    @Deprecated
+    public static String image2words(String url) {
+        return fromUrl(url);
+    }
 
+    public static String fromUrl(String url) {
+        Req aReq = new Req(url, null, null);
+        return run(aReq);
+    }
+
+    public static String fromUrl(String url, Boolean fetch4me) {// not working
+        Req aReq = new Req(url, null, fetch4me ? "1" : null);
+        return run(aReq);
+    }
+
+    public static String fromBase64(String base64) {
+        Req aReq = new Req(null, base64, null);
+        return run(aReq);
+    }
 }

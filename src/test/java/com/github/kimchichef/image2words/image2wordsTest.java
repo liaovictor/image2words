@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.github.kimchichef.image2words.image2words;
 import com.google.gson.JsonSyntaxException;
+import org.jsoup.Jsoup;
 import org.junit.Test;
 
 import java.io.File;
@@ -59,15 +60,34 @@ public class image2wordsTest {
         assertTrue(result.contains("CEYBLN"));
     }
 
-//    @Test
-//    public void convB64() throws IOException {
-//        String collect = Files.list(new File("src/test/").toPath()).map(e->e.toString()).collect(Collectors.joining(","));
-//        System.out.println(collect);
-//        byte[] bytes = Files.readAllBytes(new File("src/test/testImg.jpg").toPath());
-//        System.out.println(bytes.length);
-//        String s = new String(Base64.getEncoder().encode(bytes),"utf-8");
-//        System.out.println(s);
-//    }
+    @Test
+    public void testBase64WithSoup() throws IOException {
+        String result = "result";
+
+        String url = "https://images-na.ssl-images-amazon.com/captcha/cdkxpfei/Captcha_hvhaaoukna.jpg";
+
+        byte[] bytes = Jsoup.connect(url).ignoreContentType(true)
+                .execute().bodyAsBytes();
+        String base64 = Base64.getEncoder().encodeToString(bytes);
+        try {
+            result = image2words.fromBase64(base64);
+        } catch (JsonSyntaxException e) {
+            System.out.println("found exception in test url");
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        assertTrue(result.contains("NMCULT"));
+    }
+
+    @Test
+    public void testFromUrlAndFetchLocally() {
+        String result = "result";
+        String url = "https://images-na.ssl-images-amazon.com/captcha/bysppkyq/Captcha_ldjhynecuc.jpg";
+        result = image2words.fromUrlAndFetchLocally(url);
+        System.out.println(result);
+        assertTrue(result.contains("LGKPNY"));
+
+    }
 
 //    @Test
 //    public void testFetch4me(){//TypeError: fetch is not a function

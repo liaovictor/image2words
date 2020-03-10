@@ -25,7 +25,6 @@ public class image2wordsTest {
 
     @Test
     public void testCorrectAnswer() {
-//        image2words classUnderTest = new image2words();
         String result = "result";
 
         try {

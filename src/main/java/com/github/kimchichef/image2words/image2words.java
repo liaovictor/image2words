@@ -30,7 +30,7 @@ public class image2words {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(MediaType.get("application/json;charset=utf-8"), req);
         Request request = new Request.Builder()
-                .url("https://proto.col.ai/f/image2words")
+                .url("https://j.pdps.cn/f/image2words")
                 .post(body)
                 .build();
         String res = "{}";

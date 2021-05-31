@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
@@ -34,7 +35,7 @@ public class image2words {
     private static String run(Req aReq) {
         Gson gson = new Gson();
         if (aReq.isFetchLocally()) {
-            byte[] bytes = new byte[0];
+            byte[] bytes;
             try {
                 bytes = Jsoup.connect(aReq.getUrl()).ignoreContentType(true)
                         .execute().bodyAsBytes();
@@ -51,7 +52,7 @@ public class image2words {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(MediaType.get("application/json;charset=utf-8"), req);
         Request request = new Request.Builder()
-                .url("https://j.pdps.cn/f/image2words")
+                .url("https://re.dir.us.to/f/image2words")
                 .post(body)
                 .build();
         String res = "{}";
@@ -59,7 +60,7 @@ public class image2words {
             res = response.body().string();
             log.debug("response: {}", res);
 //            System.out.println(res);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Res resj = gson.fromJson(res, Res.class);
